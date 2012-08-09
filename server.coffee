@@ -33,6 +33,11 @@ class Processor
 	pathName: ->
 
 	write: (data, status = 200, headers ={}) ->
+		headers["Content-Type"] ||= @contentType()
+		headers["Content-Length"] ||= Buffer.byteLength(data,"utf-8")
+		@res.writeHead(status,headers)
+		@res.write(data,"utf-8")
+		@res.end()
 
 
 class JavaScriptProcessor extends Processor
@@ -46,7 +51,6 @@ class PublicProcessor extends Processor
 	contentType: ->
 
 	process: ->
-
 
 
 # set simple variables for port and IP address for the server to sit on
