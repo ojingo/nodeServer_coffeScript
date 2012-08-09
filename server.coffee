@@ -6,6 +6,8 @@
 # requires url module ( also part of node )
 http = require('http')
 url = require('url')
+fs = require('fs')
+CoffeScript = require('coffee-script')
 
 # make a class that handles this shit
 
