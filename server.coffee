@@ -41,6 +41,12 @@ class JavaScriptProcessor extends Processor
 
 	process: ->
 
+class PublicProcessor extends Processor
+
+	contentType: ->
+
+	process: ->
+
 
 
 # set simple variables for port and IP address for the server to sit on
