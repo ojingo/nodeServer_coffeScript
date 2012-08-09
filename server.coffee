@@ -32,7 +32,7 @@ class Processor
 	process: ->
 		throw new Error("process must be implemented!")
 
-	pathName: ->
+	pathname: ->
 		@pathInfo.pathname
 
 	write: (data, status = 200, headers ={}) ->
@@ -48,7 +48,7 @@ class JavaScriptProcessor extends Processor
 	contentType: ->
 		"application/x-javascript"
 
-	pathName: ->
+	pathname: ->
 		file = (/\/javascripts\/(.+)\.js/.exec(@pathInfo.pathname))[1]
 		return #{file}.coffee
 
@@ -64,8 +64,31 @@ class JavaScriptProcessor extends Processor
 class PublicProcessor extends Processor
 
 	contentType: ->
+		ext = (/\.(.+$/.exec(@pathname)))[1].toLowerCase()
+		switch ext
+			when "png", "jpg", "jpeg", "gif"
+				"image/#{ext}"
+			when "css"
+				"text/css"
+			else
+				"text/html"
+
 
 	process: ->
+		fs.readFile "public/#{@pathname()}", "utf-8", (err,data) =>
+			if err?
+				@write("oops! We can't find the page you are looking for!", 404)
+			else
+				@write(data)
+
+	pathname: ->
+		unless @_pathname
+			if@pathinfo.pathname is "/" or @pathinfo.pathname is ""
+				@pathinfo.pathname = "index"
+			unless /\..+$/.test @pathinfo.pathname
+				@pathinfo.pathname += ".html"
+			@_pathname = @pathinfo.pathname
+		return @_pathname
 
 
 # set simple variables for port and IP address for the server to sit on
