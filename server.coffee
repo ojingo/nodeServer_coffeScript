@@ -31,6 +31,7 @@ class Processor
 		throw new Error("process must be implemented!")
 
 	pathName: ->
+		@pathInfo.pathname
 
 	write: (data, status = 200, headers ={}) ->
 		headers["Content-Type"] ||= @contentType()
