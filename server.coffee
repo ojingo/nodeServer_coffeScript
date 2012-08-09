@@ -1,15 +1,16 @@
 # first node server written purely in coffeescript
-# now Im understanding that coffescript compiler is nothing more than a node server 
+# now Im understanding that coffescript transpiler is nothing more than a node server 
 # with coffeescript interpreter built on top!
 
 # require http module ( part of node )
 # requires url module ( also part of node )
+
 http = require('http')
 url = require('url')
 fs = require('fs')
 CoffeScript = require('coffee-script')
 
-# make a class that handles this shit
+# make a class that handles this stuff
 
 class Application
 
