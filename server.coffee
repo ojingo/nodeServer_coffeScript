@@ -75,11 +75,11 @@ class PublicProcessor extends Processor
 
 	pathname: ->
 		unless @_pathname
-			if@pathinfo.pathname is "/" or @pathinfo.pathname is ""
-				@pathinfo.pathname = "index"
-			unless /\..+$/.test @pathinfo.pathname
-				@pathinfo.pathname += ".html"
-			@_pathname = @pathinfo.pathname
+			if@pathInfo.pathname is "/" or @pathInfo.pathname is ""
+				@pathInfo.pathname = "index"
+			unless /\..+$/.test @pathInfo.pathname
+				@pathInfo.pathname += ".html"
+			@_pathname = @pathInfo.pathname
 		return @_pathname
 
 	process: ->
