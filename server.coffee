@@ -3,6 +3,7 @@
 # with coffeescript interpreter built on top!
 
 # require http module ( part of node )
+# requires url module ( also part of node )
 http = require('http')
 url = require('url')
 
