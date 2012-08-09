@@ -102,7 +102,7 @@ ip = "127.0.0.1"
 # response is a CALLBACK function pointer 
 
 server = http.createServer (req,res) ->
-	app = new Application(req, res) ->
+	app = new Application(req, res)
 	app.process()
 
 server.listen(port,ip)
