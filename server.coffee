@@ -64,7 +64,7 @@ class JavaScriptProcessor extends Processor
 class PublicProcessor extends Processor
 
 	contentType: ->
-		ext = (/\.(.+)$/.exec(@pathname)))[1].toLowerCase()
+		ext = (/\.(.+)$/.exec(@pathname()))[1].toLowerCase()
 		switch ext
 			when "png", "jpg", "jpeg", "gif"
 				"image/#{ext}"
