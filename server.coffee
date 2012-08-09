@@ -46,8 +46,20 @@ class Processor
 class JavaScriptProcessor extends Processor
 
 	contentType: ->
+		"application/x-javascript"
+
+	pathName: ->
+		file = (/\/javascripts\/(.+)\.js/.exec(@pathInfo.pathname))[1]
+		return #{file}.coffee
 
 	process: ->
+		fs.readFile "src/#{@pathname()}", "utf-8", (err,data) =>
+			if err?
+				@write("",404)
+			else
+				@write(CoffeeScript.compile(data))
+
+
 
 class PublicProcessor extends Processor
 
