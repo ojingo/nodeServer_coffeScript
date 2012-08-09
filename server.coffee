@@ -29,11 +29,11 @@ class Processor
 	contentType: ->
 		throw new Error("contentType must be implemented!")
 
-	process: ->
-		throw new Error("process must be implemented!")
-
 	pathname: ->
 		@pathInfo.pathname
+
+	process: ->
+		throw new Error("process must be implemented!")
 
 	write: (data, status = 200, headers ={}) ->
 		headers["Content-Type"] ||= @contentType()
@@ -73,14 +73,6 @@ class PublicProcessor extends Processor
 			else
 				"text/html"
 
-
-	process: ->
-		fs.readFile "public/#{@pathname()}", "utf-8", (err,data) =>
-			if err?
-				@write("oops! We can't find the page you are looking for!", 404)
-			else
-				@write(data)
-
 	pathname: ->
 		unless @_pathname
 			if@pathinfo.pathname is "/" or @pathinfo.pathname is ""
@@ -89,6 +81,15 @@ class PublicProcessor extends Processor
 				@pathinfo.pathname += ".html"
 			@_pathname = @pathinfo.pathname
 		return @_pathname
+
+	process: ->
+		fs.readFile "public/#{@pathname()}", "utf-8", (err,data) =>
+			if err?
+				@write("oops! We can't find the page you are looking for!", 404)
+			else
+				@write(data)
+
+
 
 
 # set simple variables for port and IP address for the server to sit on
